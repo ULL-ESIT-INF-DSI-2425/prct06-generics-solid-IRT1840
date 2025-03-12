@@ -73,3 +73,4 @@ export class StringSearchableCollection extends SearchableCollection<string> {
     return stringCoincidences;
   }
 }
+
