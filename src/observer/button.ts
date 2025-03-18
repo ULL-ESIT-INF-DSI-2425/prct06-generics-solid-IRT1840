@@ -1,6 +1,6 @@
-import { Observable } from './interfaces';
-import { Observer } from './interfaces';
-import { ButtonClickEventType } from './interfaces';
+import { Observable } from './interfaces.js';
+import { Observer } from './interfaces.js';
+import { ButtonClickEventType } from './interfaces.js';
 
 export class Button implements Observable {
   private observers: Observer[] = [];

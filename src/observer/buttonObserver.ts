@@ -1,7 +1,7 @@
-import { Observer } from './interfaces';
-import { Observable } from './interfaces';
-import { ButtonClickEventType } from './interfaces';
-import { Button } from './button';
+import { Observer } from './interfaces.js';
+import { Observable } from './interfaces.js';
+import { ButtonClickEventType } from './interfaces.js';
+import { Button } from './button.js';
 export class ButtonObserver implements Observer {
   constructor(private id: number, private name: string) {
   }
