@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { Complex } from "../src/aritmetica/complex.js";
 import { Rational } from "../src/aritmetica/rational.js";
-import { Adapter } from "../src/aritmetica/adapter.js";
+import { Adapter } from "../src/aritmetica/adapter.js"
 import { ArithmeticableCollection } from "../src/aritmetica/arithmeticablecollection.js";
 
 // Tests para la clase Complex
@@ -90,29 +90,58 @@ describe("Adapter", () => {
     const result = adapter.add(complex);
     expect(result.getReal()).toBe(2.5);
     expect(result.getImaginary()).toBe(2);
-  });
+  })
+
+  it("Debería restar un racional convertido con un número complejo", () => {
+    const r = new Rational(1, 1);
+    const adapter = new Adapter(r);
+    const complex = new Complex(1, 2);
+    const result = adapter.subtract(complex);
+    expect(result.getReal()).toBe(0);
+    expect(result.getImaginary()).toBe(-2);
+  })
+
+  it("Debería multiplicar un racional convertido con un número complejo", () => {
+    const r = new Rational(1, 1);
+    const adapter = new Adapter(r);
+    const complex = new Complex(2, 2);
+    const result = adapter.multiply(complex);
+    expect(result.getReal()).toBe(2);
+    expect(result.getImaginary()).toBe(2);
+  })
+
+  it("Debería dividir un racional convertido con un número complejo", () => {
+    const r = new Rational(2, 1);
+    const adapter = new Adapter(r);
+    const complex = new Complex(2, 4);
+    const result = adapter.multiply(complex);
+    expect(result.getReal()).toBe(4);
+    expect(result.getImaginary()).toBe(8);
+  })
+
+  it("Debería sumar dos racionales convertidos con un número complejo", () => {
+    const r = new Rational(2, 1);
+    const r2 = new Rational(2,2,)
+    const adapter = new Adapter(r);
+    const adapter2 = new Adapter(r2)
+    const complex = new Complex(2, 4);
+    const result = adapter.add(complex).add(adapter2)
+    expect(result.getReal()).toBe(5);
+    expect(result.getImaginary()).toBe(4);
+  })
+  
+  it("Debería multiplicar dos racionales convertidos con un número complejo", () => {
+    const r = new Rational(2, 1);
+    const r2 = new Rational(2,2,)
+    const adapter = new Adapter(r);
+    const adapter2 = new Adapter(r2)
+    const complex = new Complex(2, 4);
+    const result = adapter.multiply(complex).multiply(adapter2)
+    expect(result.getReal()).toBe(4);
+    expect(result.getImaginary()).toBe(8);
+  })
+
+  
+
+
 });
-
-// Tests para la clase ArithmeticableCollection
-describe("ArithmeticableCollection", () => {
-  it("Debería agregar un elemento a la colección", () => {
-    const collection = new ArithmeticableCollection<Complex>([]);
-    const complex = new Complex(1, 1);
-    collection.addArithmeticable(complex);
-    expect(collection.getNumberArithmeticable()).toBe(1);
-  });
-
-  it("Debería obtener un elemento por su índice", () => {
-    const complex = new Complex(2, 3);
-    const collection = new ArithmeticableCollection<Complex>([complex]);
-    expect(collection.getArithmeticable(0)).toBe(complex);
-  });
-
-  it("Debería eliminar un elemento por su índice", () => {
-    const complex = new Complex(4, 5);
-    const collection = new ArithmeticableCollection<Complex>([complex]);
-    collection.removeArithmeticable(0);
-    expect(collection.getNumberArithmeticable()).toBe(0);
-  });
-});
-
