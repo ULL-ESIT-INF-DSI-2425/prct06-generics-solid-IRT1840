@@ -1,161 +1,118 @@
-import { describe, test, expect, beforeEach } from "vitest";
-import {  
-    ArithmeticableCollection,
-    Complex,
-   
-} from "../src/aritmetica";
-import { MoviesCollection } from "../src/dsiflix";
+import { describe, it, expect } from "vitest";
+import { Complex } from "../src/aritmetica/complex.js";
+import { Rational } from "../src/aritmetica/rational.js";
+import { Adapter } from "../src/aritmetica/adapter.js";
+import { ArithmeticableCollection } from "../src/aritmetica/arithmeticablecollection.js";
 
-describe("Pruebas numero complejo", () => {
-    let complejo1 : Complex;
-    let Complejo2 : Complex
-    let complejo3 : Complex
-
-  beforeEach(() => {
-    complejo1 = new Complex(1,1)
-    Complejo2 = new Complex(1,1)
-    complejo3 = new Complex(2,2)
+// Tests para la clase Complex
+describe("Complex", () => {
+  it("Debería sumar dos números complejos correctamente", () => {
+    const c1 = new Complex(3, 2);
+    const c2 = new Complex(1, 7);
+    const result = c1.add(c2);
+    expect(result.getReal()).toBe(4);
+    expect(result.getImaginary()).toBe(9);
   });
 
-  test("debe poder acceder a los atributos de la parte real", () => {
-    expect(complejo1.getReal()).toBe(1)
-
-    expect(Complejo2.getReal()).toBe(1)
-
-    expect(complejo3.getImaginary()).toBe(2)
-  });
-  
-  test("debe poder acceder a los atributos de la parte imaginaria", () => {
-    expect(complejo1.getImaginary()).toBe(1)
-
-    expect(Complejo2.getImaginary()).toBe(1)
+  it("Debería restar dos números complejos correctamente", () => {
+    const c1 = new Complex(5, 3);
+    const c2 = new Complex(2, 1);
+    const result = c1.subtract(c2);
+    expect(result.getReal()).toBe(3);
+    expect(result.getImaginary()).toBe(2);
   });
 
-  test("se deben sumar adecuadamente", () => {
-    expect(complejo1.add(Complejo2).getReal()).toBe(2)
-
-    expect(complejo1.add(Complejo2).getImaginary()).toBe(2)
-
-    expect(complejo1.add(complejo3).getImaginary()).toBe(3)
-
+  it("Debería multiplicar dos números complejos correctamente", () => {
+    const c1 = new Complex(1, 2);
+    const c2 = new Complex(3, 4);
+    const result = c1.multiply(c2);
+    expect(result.getReal()).toBe(-5);
+    expect(result.getImaginary()).toBe(10);
   });
 
-  test("se deben restar adecuadamente", () => {
-    expect(complejo1.subtract(Complejo2).getReal()).toBe(0)
-
-    expect(complejo1.subtract(Complejo2).getImaginary()).toBe(0)
-
-    expect(complejo1.subtract(complejo3).getImaginary()).toBe(-1)
-    
+  it("Debería dividir dos números complejos correctamente", () => {
+    const c1 = new Complex(3, 2);
+    const c2 = new Complex(1, -1);
+    const result = c1.divide(c2);
+    expect(result.getReal()).toBeCloseTo(0.5);
+    expect(result.getImaginary()).toBeCloseTo(2.5);
   });
-
-  test("se deben multiplicar adecuadamente", () => {
-    expect(complejo1.multiply(Complejo2).getReal()).toBe(0)
-
-    expect(complejo1.multiply(Complejo2).getImaginary()).toBe(2)
-
-    expect(complejo1.multiply(complejo3).getImaginary()).toBe(4)
-    
-  });
-
-  test("se deben dividir adecuadamente", () => {
-    expect(complejo1.divide(Complejo2).getReal()).toBe(1)
-
-    expect(complejo1.divide(Complejo2).getImaginary()).toBe(0)
-
-    expect(complejo1.divide(complejo3).getImaginary()).toBe(0)
-    
-  });
-
-  test("se deben poder cambiar los atributos", () => {
-    complejo1.setReal(2)
-    Complejo2.setImaginary(4)
-    complejo3.setImaginary(4)
-
-    expect(complejo1.getReal()).toBe(2)
-
-    expect(Complejo2.getImaginary()).toBe(4)
-
-    expect(complejo3.getImaginary()).toBe(4)
-    
-  });
-
-
 });
 
-
-
-
-
-
-
-describe("Pruebas colleción de elementos (Numeros complejos)", () => {
-  let coleccion : ArithmeticableCollection<Complex>;
-  let complejo1 : Complex
-  let complejo2 : Complex
-
-
-  beforeEach(() => {
-    complejo1 = new Complex(1,1)
-    complejo2 = new Complex(1,1)
-    coleccion = new ArithmeticableCollection([complejo1])
+// Tests para la clase Rational
+describe("Rational", () => {
+  it("Debería sumar dos números racionales correctamente", () => {
+    const r1 = new Rational(1, 2);
+    const r2 = new Rational(1, 3);
+    const result = r1.add(r2);
+    expect(result.getNumerator()).toBe(5);
+    expect(result.getDenominator()).toBe(6);
   });
 
-  test("Debe identificar adecuadamente el numero de elementos", () => {
-
-    expect(coleccion.getNumberArithmeticable()).toBe(1)
-
+  it("Debería restar dos números racionales correctamente", () => {
+    const r1 = new Rational(3, 4);
+    const r2 = new Rational(1, 2);
+    const result = r1.subtract(r2);
+    expect(result.getNumerator()).toBe(2);
+    expect(result.getDenominator()).toBe(8);
   });
 
-  test("Debe añadir correctamente un elemento", () => {
-
-    coleccion.addArithmeticable(complejo2)
-
-    expect(coleccion.getNumberArithmeticable()).toBe(2)
-
+  it("Debería multiplicar dos números racionales correctamente", () => {
+    const r1 = new Rational(2, 3);
+    const r2 = new Rational(3, 4);
+    const result = r1.multiply(r2);
+    expect(result.getNumerator()).toBe(6);
+    expect(result.getDenominator()).toBe(12);
   });
 
-    test("Debe añadir correctamente dos elemento", () => {
-
-    coleccion.addArithmeticable(complejo2)
-    let complejo3 = new Complex(2,2)
-    coleccion.addArithmeticable(complejo3)
-    
-    expect(coleccion.getNumberArithmeticable()).toBe(3)
-
+  it("Debería dividir dos números racionales correctamente", () => {
+    const r1 = new Rational(3, 5);
+    const r2 = new Rational(2, 7);
+    const result = r1.divide(r2);
+    expect(result.getNumerator()).toBe(21);
+    expect(result.getDenominator()).toBe(10);
   });
-
-  test("Debe devolver el complejo adecuado", () => {
-
-    expect(coleccion.getArithmeticable(0)).toStrictEqual(complejo1)
-
-    coleccion.addArithmeticable(complejo2)
-
-    expect(coleccion.getArithmeticable(1)).toStrictEqual(complejo2)
-
-
-  });
-
-  test("Debe identificar adecuadamente el numero de elementos", () => {
-
-    expect(coleccion.getNumberArithmeticable()).toBe(1)
-
-    coleccion.addArithmeticable(complejo2)
-
-    expect(coleccion.getNumberArithmeticable()).toBe(2)
-
-  });
-  test("Debe devolver el complejo adecuado", () => {
-
-    coleccion.addArithmeticable(complejo2)
-
-    coleccion.removeArithmeticable(1)
-
-    expect(coleccion.getNumberArithmeticable()).toBe(1)
-
-  });
-
-
-
-
 });
+
+// Tests para la clase Adapter
+describe("Adapter", () => {
+  it("Debería convertir un número racional a un número complejo", () => {
+    const r = new Rational(5, 2);
+    const adapter = new Adapter(r);
+    expect(adapter.getReal()).toBe(2.5);
+    expect(adapter.getImaginary()).toBe(0);
+  });
+
+  it("Debería sumar un racional convertido con un número complejo", () => {
+    const r = new Rational(3, 2);
+    const adapter = new Adapter(r);
+    const complex = new Complex(1, 2);
+    const result = adapter.add(complex);
+    expect(result.getReal()).toBe(2.5);
+    expect(result.getImaginary()).toBe(2);
+  });
+});
+
+// Tests para la clase ArithmeticableCollection
+describe("ArithmeticableCollection", () => {
+  it("Debería agregar un elemento a la colección", () => {
+    const collection = new ArithmeticableCollection<Complex>([]);
+    const complex = new Complex(1, 1);
+    collection.addArithmeticable(complex);
+    expect(collection.getNumberArithmeticable()).toBe(1);
+  });
+
+  it("Debería obtener un elemento por su índice", () => {
+    const complex = new Complex(2, 3);
+    const collection = new ArithmeticableCollection<Complex>([complex]);
+    expect(collection.getArithmeticable(0)).toBe(complex);
+  });
+
+  it("Debería eliminar un elemento por su índice", () => {
+    const complex = new Complex(4, 5);
+    const collection = new ArithmeticableCollection<Complex>([complex]);
+    collection.removeArithmeticable(0);
+    expect(collection.getNumberArithmeticable()).toBe(0);
+  });
+});
+
